@@ -14,13 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ControllerServlet
- */
-@WebServlet("/points/*")
+
+
+@WebServlet(urlPatterns = {"/points/dashboard", "/points/home"})
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Student> studentList = new ArrayList<Student>();
+	//private StudentDAO studentDAO;
 	
     public ControllerServlet() {
         super();
@@ -29,14 +28,42 @@ public class ControllerServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Student> students = StudentDAO.listAllStudents();
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/dashboard.html");
-		dispatcher.forward(request, response);
-		request.setAttribute("student_list", students);
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String action =request.getPathInfo();
+		
+		if (action.equals("/points/dashboard")) {
+			listStudents(request, response);
+		} else {
+			
+			
+			
+			
+		}
+		
+		
 	}
 	
+	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//ArrayList<Student> students = studentDAO.listAllStudents();
+		
+		//request.setAttribute("student_list", students);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/dashboard.html");
+		dispatcher.forward(request, response);
+		
+	}
+	
+	/**
+	
+	private void homepage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//ArrayList<Student> students = studentDAO.listAllStudents();
+		
+		//request.setAttribute("student_list", students);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/homepage.html");
+		dispatcher.forward(request, response);
+		
+	}
+	
+	/**
 	public void login(HttpServletRequest request, HttpServletResponse response, String username, String password) throws ServletException, IOException {
 		Connection jdbcConnection;
 		Statement statement = jdbcConnection.createStatement();
@@ -58,7 +85,7 @@ public class ControllerServlet extends HttpServlet {
 					
 				
 		}
-		​
+		​**/
 		
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -70,10 +97,9 @@ public class ControllerServlet extends HttpServlet {
 		//output.println("Hello " + username);
 		//output.println("Hello " + password);
 				
-		login(request,response, username, password);
+		//login(request,response, username, password);
 				
 				
 		}
-		​
 	}
 		
