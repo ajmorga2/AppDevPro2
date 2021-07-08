@@ -1,0 +1,33 @@
+body {
+  margin: auto;
+  text-align: center;
+  background-color: #5d059a;
+}
+
+#loginFrame {
+  margin: auto;
+  margin-top: 5%;
+  height: 500px;
+  width: 35%;
+  background-color: white;
+}
+
+form {
+  margin-top: 10px;
+}
+
+label {
+  font-family: "Lobster", cursive;
+  padding-top: 10px;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  background-color: #5d059a;
+  color: white;
+}
+
+h3 {
+  font-family: "Lobster", cursive;
+  padding-bottom: 10px;
+}
