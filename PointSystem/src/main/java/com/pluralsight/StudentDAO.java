@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,14 +9,16 @@ import java.util.ArrayList;
 
 
 public class StudentDAO {
-	private String jdbcURL = "jdbc:mysql://localhost:3306/book_store";
+	
+	private String jdbcURL = "jdbc:mysql://localhost:3306/point_management";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "";
 	private Connection jdbcConnection;
 	
-	public void connect() {
+	public void connect() throws ClassNotFoundException {
 		try {
 			if (jdbcConnection == null || jdbcConnection.isClosed()) {
+				Class.forName("com.mysql.jdbc.Driver");
 				jdbcConnection = DriverManager.getConnection(
 						jdbcURL, jdbcUsername, jdbcPassword);
 				
@@ -25,6 +26,7 @@ public class StudentDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("MySQL Connection Established");			
 		}
 
 	}
@@ -40,14 +42,14 @@ public class StudentDAO {
 		}
 	}
 	
-	public ArrayList<Student> listAllStudents() {
+	public ArrayList<Student> listAllStudents() throws ClassNotFoundException {
 		connect();
 		ArrayList<Student> studentList = new ArrayList<>();
 		try {
 			Statement statement = jdbcConnection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM student");
 			//while there are more rows, get the information for each row and store it
-			//as a book instance. Take that book instance and add is to the array list
+			//as a student instance. Take that book instance and add is to the array list
 			while (resultSet.next()) {
 				String firstName = resultSet.getString("firstName");
 				String lastName = resultSet.getString("lastName");

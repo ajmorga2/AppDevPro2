@@ -19,26 +19,24 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/points/dashboard", "/points/home"})
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private StudentDAO studentDAO;
+	private StudentDAO studentDAO;
 	
-    public ControllerServlet() {
+    public ControllerServlet() throws ClassNotFoundException {
         super();
-        // TODO Auto-generated constructor stub
+        
+        studentDAO = new StudentDAO();
+        studentDAO.connect();
+        studentDAO.disconnect();
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String action =request.getPathInfo();
+		//String action =request.getPathInfo();
 		
-		if (action.equals("/points/dashboard")) {
-			listStudents(request, response);
-		} else {
-			
-			
-			
-			
-		}
+		listStudents(request, response);
+		
+	
 		
 		
 	}
@@ -52,8 +50,8 @@ public class ControllerServlet extends HttpServlet {
 		
 	}
 	
-	/**
 	
+	/**
 	private void homepage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//ArrayList<Student> students = studentDAO.listAllStudents();
 		
